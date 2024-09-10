@@ -4,7 +4,10 @@ export const LoginContext = createContext()
 
 export const LoginProvider = ({children}) => {
 
-    const [user, setUser] = useState(null);
+    const [user, setUser] = useState(() => {
+        const storedUser = localStorage.getItem('user');
+        return storedUser ? JSON.parse(storedUser) : null;
+    });
 
     return(
         <LoginContext.Provider value={[user, setUser]}>
