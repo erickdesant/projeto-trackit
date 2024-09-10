@@ -1,14 +1,22 @@
 import {Link, useNavigate} from "react-router-dom";
 import styled from "styled-components";
 import axios from "axios";
-import {useState} from "react";
+import {useContext, useEffect, useState} from "react";
 import {ThreeDots} from "react-loader-spinner";
+import LoginContext from "../src/LoginContext.jsx";
 
 function Login(){
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [carregando,setCarregando] = useState(false);
     const navigate = useNavigate();
+    const [,setUser] = useContext(LoginContext)
+
+    useEffect(() => {
+        if (localStorage.getItem("user")) {
+            navigate("/hoje");
+        }
+    }, [navigate]);
 
     function fazerLogin(e){
         e.preventDefault()
@@ -18,7 +26,11 @@ function Login(){
             password
         }
         axios.post('https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/login',login)
-            .then(() => navigate("/hoje"))
+            .then((res) => {
+                setUser(res.data)
+                localStorage.setItem('user',JSON.stringify(res.data))
+                navigate("/hoje")
+            })
             .catch((err) => {
             console.log(err)
             })
