@@ -1,12 +1,14 @@
 import styled from "styled-components";
 import {Link} from "react-router-dom";
+import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
+import EventAvailableIcon from '@mui/icons-material/EventAvailable';
 
 function Footer(){
     return(
         <>
             <Foot>
-                <FootButton ><Link to = "/habitos">Hábitos</Link></FootButton>
-                <FootButton ><Link to = "/hoje">Hoje</Link></FootButton>
+                <FootButton> <StyledLink to = "/habitos"> <CalendarMonthIconStyled/> Hábitos </StyledLink></FootButton>
+                <FootButton> <StyledLink to = "/hoje"> <EventAvailableIconStyled/>Hoje</StyledLink></FootButton>
             </Foot>
         </>
     )
@@ -27,8 +29,20 @@ const FootButton = styled.button`
     width: 100%;
     padding: 5px;
     border: none;
-    
-    Link{
-        
+`
+const StyledLink = styled(Link)`
+    font-family: 'Lexend Deca', sans-serif;
+    text-decoration: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    &:visited {
+        color: #000;
     }
+`
+const CalendarMonthIconStyled = styled(CalendarMonthIcon)`
+    margin-right: 4px;
+`
+const EventAvailableIconStyled = styled(EventAvailableIcon)`
+    margin-right: 4px;
 `

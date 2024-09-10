@@ -42,7 +42,7 @@ function Login(){
     return(
         <>
             <BodyWrapper>
-                <img src="../public/Group%208.png" alt = "logo"/>
+                <img src="/Group%208.png" alt = "logo"/>
                 <form onSubmit={fazerLogin}>
                     <Input type="text" value={email} placeholder="email"
                            onChange = {e => setEmail(e.target.value)} disabled={carregando} carregando = {carregando}/>

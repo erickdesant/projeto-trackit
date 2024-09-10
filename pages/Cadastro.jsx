@@ -39,7 +39,7 @@ function Login(){
     return(
         <>
             <BodyWrapper>
-                <img src="../public/Group%208.png" alt="logo"/>
+                <img src="/Group%208.png" alt="logo"/>
                 <form onSubmit={fazerCadastro}>
                     <Input type="text" value={email} placeholder="email"
                     onChange = {e => setEmail(e.target.value)} required disabled = {carregando} carregando = {carregando}/>
