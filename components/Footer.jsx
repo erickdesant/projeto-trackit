@@ -21,6 +21,7 @@ const Foot = styled.footer`
     position: fixed;
     bottom: 0;
     width: 100%;
+    height: 10vh;
 `
 const FootButton = styled.button`
     display: flex;

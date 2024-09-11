@@ -8,8 +8,6 @@ function Navbar(){
     const [user] = useContext(LoginContext)
     const navigate = useNavigate();
 
-    console.log(user)
-
     useEffect(() => {
         if (!user){
             return (
@@ -40,6 +38,7 @@ const Nav = styled.nav`
     position:fixed;
     top: 0;
     width: 100%;
+    height: 10vh;
     justify-content: space-between;
     font-family: 'Playball',cursive;
     color: white;
