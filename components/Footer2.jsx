@@ -13,7 +13,6 @@ function Footer(){
         </>
     )
 }
-
 export default Footer
 
 const Foot = styled.footer`
@@ -30,8 +29,7 @@ const FootButtonActive = styled.button`
     width: 100%;
     padding: 5px;
     border: none;
-    background-color:#52B6FF;
-    color:white;
+    background-color:#FFFFFF;
 `
 const FootButtonInactive = styled.button`
     display: flex;
@@ -40,7 +38,7 @@ const FootButtonInactive = styled.button`
     width: 100%;
     padding: 5px;
     border: none;
-    background-color:#FFFFFF;
+    background-color:#52B6FF;
 `
 const StyledLink = styled(Link)`
     font-family: 'Lexend Deca', sans-serif;
@@ -52,7 +50,7 @@ const StyledLink = styled(Link)`
         color: #000;
     }
     p{
-        color:#FFFFFF;
+        color:#D4D4D4;
     }
 `
 const StyledLinkInactive = styled(Link)`
@@ -65,14 +63,14 @@ const StyledLinkInactive = styled(Link)`
         color: #000;
     }
     p{
-        color: #D4D4D4;
+        color: white;
     }
 `
 const CalendarMonthIconStyled = styled(CalendarMonthIcon)`
     margin-right: 4px;
-    color:white;
+    color:#D4D4D4;
 `
 const EventAvailableIconStyled = styled(EventAvailableIcon)`
     margin-right: 4px;
-    color: #D4D4D4;
+    color: white;
 `

@@ -51,7 +51,7 @@ const Nav = styled.nav`
 `
 
 const Avatar = styled.img`
-    width: 20px;
+    width: 24px;
     height: 20px;
     border-radius: 50%;
 `

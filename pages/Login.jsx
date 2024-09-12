@@ -32,7 +32,9 @@ function Login(){
                 navigate("/hoje")
             })
             .catch((err) => {
-            console.log(err)
+                console.log(err)
+                alert("Login incorreto! Tente novamente.")
+                navigate(0)
             })
             .finally(() => {
                 setCarregando(false)
