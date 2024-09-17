@@ -13,7 +13,6 @@ function Login(){
     const [isVisible,setIsVisible] = useState(false)
     const [dias,setDias] = useState([])
     const [isLoading,setIsLoading] = useState(false)
-    console.log(JSON.stringify(habitos))
 
     function toggleIsVisible(){
         setIsVisible(!isVisible)
@@ -28,7 +27,6 @@ function Login(){
             name: name,
             days: dias
         }
-        console.log(body)
         const config = {
             headers:{
                 Authorization: `Bearer ${token}`
@@ -36,8 +34,7 @@ function Login(){
         }
 
         axios.post('https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits',body,config)
-            .then((response) => {
-            console.log(response)
+            .then(() => {
             buscarHabitos()
             setDias([])
             e.target.habito.value = ''
@@ -56,10 +53,9 @@ function Login(){
             }
         }).then((response) => {
             setHabitos(response.data)
-            console.log(response.data)
         })
-            .catch((err) => {
-                console.log(err)
+            .catch(() => {
+                alert("Erro ao buscar hábitos. Tente novamente.")
             })
     }
 
@@ -75,7 +71,6 @@ function Login(){
         else{
             setDias([...dias,index])
         }
-        console.log(dias)
     }
 
     return(

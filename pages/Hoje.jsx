@@ -18,7 +18,7 @@ function Hoje(){
     const [user] = useContext(LoginContext)
     const token = user.token
     const [habitos,setHabitos] = useState([])
-
+    const body = {}
     const config = {
         headers:{
             Authorization: `Bearer ${token}`
@@ -40,6 +40,29 @@ function Hoje(){
         getHoje()
     }, []);
 
+    function checkHabit(id,active){
+
+        if(active){
+            axios.post(`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${id}/uncheck`,body,config)
+            .then(() => {
+                getHoje()
+            })
+            .catch(() => {
+                alert("Erro ao checar hábito. Tente novamente.")
+            })
+        }
+        else{
+            axios.post(`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${id}/check`,body,config)
+                .then((response) => {
+                    console.log(response)
+                    getHoje()
+                })
+                .catch(() => {
+                    alert("Erro ao checar hábito. Tente novamente.")
+                })
+        }
+    }
+
     const dia = dayjs().format('dddd, DD/MM')
 
         return(
@@ -53,14 +76,13 @@ function Hoje(){
                                 <h2>{habito.name}</h2>
                                 <p>Sequência atual: {habito.currentSequence}</p>
                                 <p>Seu recorde: {habito.highestSequence}</p>
-                                <p>{habito.done ? "Feito" : "Não feito"}</p>
                             </div>
                             {habito.done ?
-                                <ButtonDiv active = {true}>
+                                <ButtonDiv active = {true} onClick={() => checkHabit(habito.id,true)}>
                                     <CheckIcon sx={{color:'white',height:'100%',width:'60px'}}/>
                                 </ButtonDiv>
                                 :
-                                <ButtonDiv active = {false}>
+                                <ButtonDiv active = {false} onClick={() => checkHabit(habito.id,false)}>
                                     <CheckIcon sx={{color:'white',height:'100%',width:'60px'}}/>
                                 </ButtonDiv>
                             }

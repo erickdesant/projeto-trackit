@@ -20,7 +20,7 @@ function Navbar(){
         <>
             <Nav>
                 <div>
-                    TrackIt
+                    <h1>TrackIt</h1>
                 </div>
                 <div>
                     <Avatar src = {user.image} alt = "avatar"/>
@@ -47,11 +47,14 @@ const Nav = styled.nav`
         display:flex;
         align-items: center;
     }
+    h1{
+        font-size: 24px;
+    }
     box-shadow: 0px 4px 4px 0px #00000026;
 `
 
 const Avatar = styled.img`
-    width: 24px;
-    height: 20px;
+    width: 36px;
+    height: 32px;
     border-radius: 50%;
 `
