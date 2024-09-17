@@ -9,10 +9,18 @@ function Login(){
     const [user] = useContext(LoginContext)
     const token = user.token
     const [habitos,setHabitos] = useState([])
+    const [isVisible,setIsVisible] = useState(false)
     console.log(JSON.stringify(habitos))
 
-    function criarHabito(){
-        const body = {
+    function toggleIsVisible(){
+        setIsVisible(!isVisible)
+    }
+
+    function criarHabito(e){
+        e.preventDefault();
+        const name = e.target.habito.value
+
+        /*const body = {
             name: 'Jogar futebol',
             days: [1, 3, 5]
         }
@@ -27,7 +35,7 @@ function Login(){
         })
             .catch((error) => {
                 console.log(error)
-            })
+            })*/
     }
     //criarHabito()
     function buscarHabitos () {
@@ -47,32 +55,29 @@ function Login(){
         buscarHabitos()
     }, []);
 
-
     return(
         <>
             <Navbar/>
             <BodyWrapper>
-                <Title><h1>Meus hábitos</h1> <button>+</button>
+                <Content>
+                <Title><h1>Meus hábitos</h1> <button onClick={toggleIsVisible}>+</button>
                 </Title>
-                <AddHabito>
-                    <form>
-                        <input type="text" placeholder="nome do hábito" name="habito"/>
-                        <div>
-                            <button>D</button>
-                            <button>S</button>
-                            <button>T</button>
-                            <button>Q</button>
-                            <button>Q</button>
-                            <button>S</button>
-                            <button>S</button>
-                            <button>D</button>
-                        </div>
-                        <div className = "mainButtons">
-                            <button>cancelar</button>
-                            <button>Salvar</button>
-                        </div>
-                    </form>
-                </AddHabito>
+                    {isVisible && (
+                        <AddHabito>
+                            <form onSubmit={criarHabito}>
+                                <input type="text" placeholder="nome do hábito" name="habito"/>
+                                <div>
+                                    {["D","S","T","Q","Q","S","S"].map((day,index) => (
+                                        <ToggleButton key = {index} > {day} </ToggleButton>
+                                    ))}
+                                </div>
+                                <div className = "mainButtons">
+                                    <button className="cancel">Cancelar</button>
+                                    <button className="save">Salvar</button>
+                                </div>
+                            </form>
+                        </AddHabito>
+                    )}
                 {habitos.length > 0 ? (
                         habitos.map((habito) => (
                             <HabitoCard key={habito.id}>
@@ -84,6 +89,7 @@ function Login(){
                         )))
                     :<p>Você não tem nenhum hábito cadastrado ainda.
                         Adicione um hábito para começar a trackear!</p>}
+                </Content>
             </BodyWrapper>
             <Footer/>
         </>
@@ -105,24 +111,24 @@ const BodyWrapper = styled.div`
 const Title = styled.div`
         display: flex;
         justify-content: space-between;
-        width: 70%;
+        
         padding: 5px;
         margin-top: 10px;
         h1{
             
             color: #126BA5;
         }
-        button{
-            border:none;
+        button {
+            border: none;
             border-radius: 5px;
             color: white;
-            background-color:#52B6FF;
+            background-color: #52B6FF;
         }
 `
 
 const HabitoCard = styled.div`
     height: 10%;
-    width: 70%;
+    
     background-color: #FFFFFF;
     border-radius: 5px;
     display:flex;
@@ -134,15 +140,17 @@ const HabitoCard = styled.div`
 const AddHabito = styled.div`
     display:flex;
     flex-direction: column;
-    width: 70%;
+    
     background-color: #FFFFFF;
     border-radius: 5px;
     margin: 10px 0;
-    button{
+    
+    button .active{
         border: 1px solid #D4D4D4;
-        color: #D4D4D4;
+        color: red;
         background-color: white;
         border-radius: 5px;
+        font-family: 'Lexend Deca',sans-serif;
     }
     *{
         margin: 2px;
@@ -159,8 +167,27 @@ const AddHabito = styled.div`
     .mainButtons {
         display:flex;
         justify-content: flex-end;
+        .cancel{
+            border: none;
+            color: #52B6FF;
+        }
+        .save{
+            border: none;
+            color: white;
+            background-color: #52B6FF;
+            border-radius:5px;
+            padding: 4px 10px;
+        }
     }
-    .mainButtons button{
-        color: black;
-    }
+`
+
+const Content = styled.div`
+    width: 70%;   
+`
+const ToggleButton = styled.button`
+    border: 1px solid #D4D4D4;
+    color: #D4D4D4;
+    background-color: white;
+    border-radius: 5px;
+    font-family: 'Lexend Deca',sans-serif;
 `
