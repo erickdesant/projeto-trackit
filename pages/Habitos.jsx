@@ -4,6 +4,7 @@ import styled from "styled-components"
 import axios from "axios";
 import {useContext, useEffect, useState} from "react";
 import LoginContext from "../src/LoginContext.jsx";
+import {ThreeDots} from "react-loader-spinner";
 
 function Login(){
     const [user] = useContext(LoginContext)
@@ -11,6 +12,7 @@ function Login(){
     const [habitos,setHabitos] = useState([])
     const [isVisible,setIsVisible] = useState(false)
     const [dias,setDias] = useState([])
+    const [isLoading,setIsLoading] = useState(false)
     console.log(JSON.stringify(habitos))
 
     function toggleIsVisible(){
@@ -19,6 +21,7 @@ function Login(){
 
     function criarHabito(e){
         e.preventDefault();
+        setIsLoading(true)
         const name = e.target.habito.value
 
         const body = {
@@ -32,12 +35,17 @@ function Login(){
             }
         }
 
-        axios.post('https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits',body,config).then((response) => {
+        axios.post('https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits',body,config)
+            .then((response) => {
             console.log(response)
             buscarHabitos()
+            setDias([])
+            e.target.habito.value = ''
+            setIsLoading(false)
         })
-            .catch((error) => {
-                console.log(error)
+            .catch(() => {
+                setIsLoading(false)
+                alert("Erro ao criar hábito. Tente novamente.")
             })
     }
 
@@ -80,16 +88,16 @@ function Login(){
                     {isVisible && (
                         <AddHabito>
                             <form onSubmit={(e) => criarHabito(e)}>
-                                <input type="text" placeholder="nome do hábito" name="habito"/>
+                                <input type="text" placeholder="nome do hábito" name="habito" disabled={isLoading}/>
                                 <div>
                                     {["D","S","T","Q","Q","S","S"].map((day,index) => (
-                                        <ToggleButton type = "button" key = {index} onClick = {() => handleButton(index)} active = {dias.includes(index)}>
+                                        <ToggleButton type = "button" key = {index} onClick = {() => handleButton(index)} active = {dias.includes(index)} disabled={isLoading}>
                                             {day}</ToggleButton>
                                     ))}
                                 </div>
                                 <div className = "mainButtons">
-                                    <button type = "button" className="cancel" onClick={() => setIsVisible(false)}>Cancelar</button>
-                                    <button type="submit" className="save">Salvar</button>
+                                    <button type = "button" className="cancel" onClick={() => setIsVisible(false)} disabled={isLoading}>Cancelar</button>
+                                    <button type="submit" className="save" disabled={isLoading}>{isLoading ? <ThreeDots color="white" height="10px" width = "18px" ariaLabel="three-dots-loading" /> : 'Salvar'}</button>
                                 </div>
                             </form>
                         </AddHabito>
