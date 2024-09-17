@@ -48,6 +48,7 @@ function Login(){
             }
         }).then((response) => {
             setHabitos(response.data)
+            console.log(response.data)
         })
             .catch((err) => {
                 console.log(err)
@@ -74,38 +75,38 @@ function Login(){
             <Navbar/>
             <BodyWrapper>
                 <Content>
-                <Title><h1>Meus hábitos</h1> <button onClick={toggleIsVisible}>+</button>
-                </Title>
+                    <Title><h1>Meus hábitos</h1> <button onClick={toggleIsVisible}>+</button>
+                    </Title>
                     {isVisible && (
                         <AddHabito>
                             <form onSubmit={(e) => criarHabito(e)}>
                                 <input type="text" placeholder="nome do hábito" name="habito"/>
                                 <div>
                                     {["D","S","T","Q","Q","S","S"].map((day,index) => (
-                                        <ToggleButton type = "button" key = {index} onClick = {() => handleButton(index)}>
-                                    {day}</ToggleButton>
+                                        <ToggleButton type = "button" key = {index} onClick = {() => handleButton(index)} active = {dias.includes(index)}>
+                                            {day}</ToggleButton>
                                     ))}
                                 </div>
                                 <div className = "mainButtons">
-                                    <button type = "button" className="cancel">Cancelar</button>
+                                    <button type = "button" className="cancel" onClick={() => setIsVisible(false)}>Cancelar</button>
                                     <button type="submit" className="save">Salvar</button>
                                 </div>
                             </form>
                         </AddHabito>
                     )}
-                {habitos.length > 0 ? (
-                        habitos.map((habito) => (
-                            <HabitoCard key={habito.id}>
-                                <h2>{habito.name}</h2>
-                                {["D","S","T","Q","Q","S","S"].map((day,index) => (
-                                <ToggleButton type = "button" key = {index}>
-                                    {day}</ToggleButton>
-                                ))}
+                    {habitos.length > 0 ? (
+                            habitos.map((habito) => (
+                                <HabitoCard key={habito.id}>
+                                    <h2>{habito.name}</h2>
+                                    {["D","S","T","Q","Q","S","S"].map((day,index) => (
+                                        <ToggleButton type = "button" key = {index} active = {habito.days.includes(index)}>
+                                            {day}</ToggleButton>
+                                    ))}
 
-                            </HabitoCard>
-                        )))
-                    :<p>Você não tem nenhum hábito cadastrado ainda.
-                        Adicione um hábito para começar a trackear!</p>}
+                                </HabitoCard>
+                            )))
+                        :<p>Você não tem nenhum hábito cadastrado ainda.
+                            Adicione um hábito para começar a trackear!</p>}
                 </Content>
             </BodyWrapper>
             <Footer/>
@@ -118,7 +119,7 @@ export default Login
 const BodyWrapper = styled.div`
     display:flex;
     background-color:#F0F0F0;
-    height: 80vh;
+    min-height: 80vh;
     margin-bottom: 10vh;
     margin-top: 10vh;
     align-items: center;
@@ -126,49 +127,42 @@ const BodyWrapper = styled.div`
     font-family: 'Lexend Deca',sans-serif;
 `
 const Title = styled.div`
-        display: flex;
-        justify-content: space-between;
-        
-        padding: 5px;
-        margin-top: 10px;
-        h1{
-            
-            color: #126BA5;
-        }
-        button {
-            border: none;
-            border-radius: 5px;
-            color: white;
-            background-color: #52B6FF;
-        }
+    display: flex;
+    justify-content: space-between;
+
+    padding: 5px;
+    margin-top: 10px;
+    h1{
+
+        color: #126BA5;
+    }
+    button {
+        border: none;
+        border-radius: 5px;
+        color: white;
+        background-color: #52B6FF;
+    }
 `
 
 const HabitoCard = styled.div`
-    height: 10%;
-    
     background-color: #FFFFFF;
     border-radius: 5px;
-    display:flex;
     font-family: 'Lexend Deca',sans-serif;
-    margin:10px;
+    margin: 10px 0;
     padding: 10px;
+    h2{
+        margin: 0 0 8px 0 ;
+    }
 `
 
 const AddHabito = styled.div`
     display:flex;
     flex-direction: column;
-    
+
     background-color: #FFFFFF;
     border-radius: 5px;
     margin: 10px 0;
-    
-    button .active{
-        border: 1px solid #D4D4D4;
-        color: red;
-        background-color: white;
-        border-radius: 5px;
-        font-family: 'Lexend Deca',sans-serif;
-    }
+
     *{
         margin: 2px;
     }
@@ -187,6 +181,7 @@ const AddHabito = styled.div`
         .cancel{
             border: none;
             color: #52B6FF;
+            background-color: white;
         }
         .save{
             border: none;
@@ -199,13 +194,14 @@ const AddHabito = styled.div`
 `
 
 const Content = styled.div`
-    width: 70%;   
+    width: 70%;
 `
 const ToggleButton = styled.button`
     border: 1px solid #D4D4D4;
-    color: #D4D4D4;
-    background-color: white;
+    color: ${({ active }) => (active ? 'white' : '#D4D4D4')};
+    background-color: ${({active}) => (active ? '#CFCFCF' : 'white') };
     border-radius: 5px;
     font-family: 'Lexend Deca',sans-serif;
     height: 20px;
+    margin: 0 2px;
 `
