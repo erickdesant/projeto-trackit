@@ -1,8 +1,43 @@
-# React + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# TrackIt
 
-Currently, two official plugins are available:
+Construa hábitos consistentemente!
+## https://projeto-cineflex-phi.vercel.app/
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Screenshots
+
+![App Screenshot](public/screenshot1.png)
+![App Screenshot](public/screenshot2.png)
+
+## Funcionalidades
+
+- Crie sua conta
+- Crie hábitos
+- Acompanhe seu progresso!
+
+## Rodando localmente
+
+Clone o projeto
+
+```bash
+  git clone https://github.com/erickdesant/projeto-trackit
+```
+
+Entre no diretório do projeto
+
+```bash
+  cd my-project
+```
+
+Instale as dependências
+
+```bash
+  npm install
+```
+
+Inicie o servidor
+
+```bash
+  npm run dev
+```
+
