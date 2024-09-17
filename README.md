@@ -2,7 +2,7 @@
 # TrackIt
 
 Construa hábitos consistentemente!
-## https://projeto-cineflex-phi.vercel.app/
+## https://projeto-trackit-orpin.vercel.app/
 
 ## Screenshots
 
