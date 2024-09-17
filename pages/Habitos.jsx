@@ -10,6 +10,7 @@ function Login(){
     const token = user.token
     const [habitos,setHabitos] = useState([])
     const [isVisible,setIsVisible] = useState(false)
+    const [dias,setDias] = useState([])
     console.log(JSON.stringify(habitos))
 
     function toggleIsVisible(){
@@ -20,10 +21,11 @@ function Login(){
         e.preventDefault();
         const name = e.target.habito.value
 
-        /*const body = {
-            name: 'Jogar futebol',
-            days: [1, 3, 5]
+        const body = {
+            name: name,
+            days: dias
         }
+        console.log(body)
         const config = {
             headers:{
                 Authorization: `Bearer ${token}`
@@ -32,12 +34,13 @@ function Login(){
 
         axios.post('https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits',body,config).then((response) => {
             console.log(response)
+            buscarHabitos()
         })
             .catch((error) => {
                 console.log(error)
-            })*/
+            })
     }
-    //criarHabito()
+
     function buscarHabitos () {
         axios.get('https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits', {
             headers: {
@@ -55,6 +58,17 @@ function Login(){
         buscarHabitos()
     }, []);
 
+    function handleButton(index){
+        if(dias.includes(index)){
+            const newDias = dias.filter(day => day !== index)
+            setDias(newDias)
+        }
+        else{
+            setDias([...dias,index])
+        }
+        console.log(dias)
+    }
+
     return(
         <>
             <Navbar/>
@@ -64,16 +78,17 @@ function Login(){
                 </Title>
                     {isVisible && (
                         <AddHabito>
-                            <form onSubmit={criarHabito}>
+                            <form onSubmit={(e) => criarHabito(e)}>
                                 <input type="text" placeholder="nome do hábito" name="habito"/>
                                 <div>
                                     {["D","S","T","Q","Q","S","S"].map((day,index) => (
-                                        <ToggleButton key = {index} > {day} </ToggleButton>
+                                        <ToggleButton type = "button" key = {index} onClick = {() => handleButton(index)}>
+                                    {day}</ToggleButton>
                                     ))}
                                 </div>
                                 <div className = "mainButtons">
-                                    <button className="cancel">Cancelar</button>
-                                    <button className="save">Salvar</button>
+                                    <button type = "button" className="cancel">Cancelar</button>
+                                    <button type="submit" className="save">Salvar</button>
                                 </div>
                             </form>
                         </AddHabito>
@@ -82,8 +97,10 @@ function Login(){
                         habitos.map((habito) => (
                             <HabitoCard key={habito.id}>
                                 <h2>{habito.name}</h2>
-                                <p>Sequência atual: x dias</p>
-                                <p>Seu recorde: x dias</p>
+                                {["D","S","T","Q","Q","S","S"].map((day,index) => (
+                                <ToggleButton type = "button" key = {index}>
+                                    {day}</ToggleButton>
+                                ))}
 
                             </HabitoCard>
                         )))
@@ -190,4 +207,5 @@ const ToggleButton = styled.button`
     background-color: white;
     border-radius: 5px;
     font-family: 'Lexend Deca',sans-serif;
+    height: 20px;
 `
